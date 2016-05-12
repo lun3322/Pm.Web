@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ComponentModel.Composition;
+using Pm.Plugin.Core;
 
 namespace Pm.Web.Controllers {
-    public class HomeController : Controller {
+    public class HomeController : ControllersBase {
+        [ImportMany]
+        private IEnumerable<IIndexBlock> _indexBlock = null;
+
         public ActionResult Index() {
-            return View();
+            var model = new Models.Home.IndexViewModel {
+                Blocks = _indexBlock.Select(m => new Models.Home.IndexBlock() {
+                    Text = m.GetText(),
+                    Title = m.GetTitle(),
+                    Link = m.GetLink()
+                })
+            };
+            
+            return View(model);
         }
 
         public ActionResult About() {
