@@ -9,11 +9,12 @@ using System.Web.Routing;
 
 namespace Pm.Web.Controllers {
     public class ControllersBase : Controller {
+        protected CompositionContainer Container { get; set; }
 
         protected override void Initialize(RequestContext requestContext) {
             base.Initialize(requestContext);
-            var container = HttpContext.Application["Container"] as CompositionContainer;
-            container?.ComposeParts(this);
+            Container = HttpContext.Application["Container"] as CompositionContainer;
+            Container?.ComposeParts(this);
         }
     }
 }
