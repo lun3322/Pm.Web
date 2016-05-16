@@ -20,9 +20,12 @@ namespace Pm.Web {
             var pluginPath = Server.MapPath("~/Plugin");
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-            catalog.Catalogs.Add(new DirectoryCatalog(pluginPath));
+            var direCatalog = new DirectoryCatalog(pluginPath);
+            catalog.Catalogs.Add(direCatalog);
             var soler = new MefDependencySolver(catalog);
             DependencyResolver.SetResolver(soler);
+
+            HttpContext.Current.Application["DirectoryCatalog"] = direCatalog;
 
             var rotes = soler.Container.GetExports<IRouteConfig>();
             foreach (var item in rotes) {

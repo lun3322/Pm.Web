@@ -4,19 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using Pm.Plugin.Core;
 
 namespace Pm.Web.Controllers {
     public class HomeController : ControllersBase {
-        [ImportMany]
-        private IEnumerable<IIndexBlock> _indexBlock = null;
-
         public ActionResult Index() {
+            var exports = Container.GetExports<IIndexBlock>();
+
             var model = new Models.Home.IndexViewModel {
-                Blocks = _indexBlock.Select(m => new Models.Home.IndexBlock() {
-                    Text = m.GetText(),
-                    Title = m.GetTitle(),
-                    Link = m.GetLink()
+                Blocks = exports.Select(m => new Models.Home.IndexBlock() {
+                    Text = m.Value.GetText(),
+                    Title = m.Value.GetTitle(),
+                    Link = m.Value.GetLink()
                 })
             };
             

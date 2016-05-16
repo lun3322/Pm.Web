@@ -10,11 +10,14 @@ using System.Web.Routing;
 namespace Pm.Web.Controllers {
     public class ControllersBase : Controller {
         protected CompositionContainer Container { get; set; }
+        protected DirectoryCatalog Catalog { get; set; }
 
         protected override void Initialize(RequestContext requestContext) {
             base.Initialize(requestContext);
             Container = HttpContext.Application["Container"] as CompositionContainer;
             Container?.ComposeParts(this);
+
+            Catalog = HttpContext.Application["DirectoryCatalog"] as DirectoryCatalog;
         }
     }
 }
