@@ -17,6 +17,7 @@ namespace Pm.Web {
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            // 插件配置
             var pluginPath = Server.MapPath("~/Plugin");
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
@@ -25,12 +26,17 @@ namespace Pm.Web {
             var soler = new MefDependencySolver(catalog);
             DependencyResolver.SetResolver(soler);
 
+            // 保存 DirectoryCatalog 为了后面刷新插件用
             HttpContext.Current.Application["DirectoryCatalog"] = direCatalog;
 
+            // 添加路由插件注册
             var rotes = soler.Container.GetExports<IRouteConfig>();
             foreach (var item in rotes) {
                 item.Value.RegisterRoutes(RouteTable.Routes);
             }
+
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new PluginViewEngine());
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
