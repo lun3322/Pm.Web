@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pm.Plugin.Nav", "..\Pm.Plug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pm.Plugin.IndexBlock", "..\Pm.Plugin\Pm.Plugin.IndexBlock\Pm.Plugin.IndexBlock.csproj", "{22E38A2E-37E2-4697-943B-D79EF9EAEBA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pm.Plugin.MVC", "..\Pm.Plugin\Pm.Plugin.MVC\Pm.Plugin.MVC.csproj", "{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{22E38A2E-37E2-4697-943B-D79EF9EAEBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E38A2E-37E2-4697-943B-D79EF9EAEBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E38A2E-37E2-4697-943B-D79EF9EAEBA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +65,6 @@ Global
 		{396CE64B-5090-4D97-ACD6-A3F73017AFEA} = {102436E8-F640-42A7-AA7C-DF42EE122CC4}
 		{A551C3C9-ED0D-419B-BC7C-C134202B0FDF} = {102436E8-F640-42A7-AA7C-DF42EE122CC4}
 		{22E38A2E-37E2-4697-943B-D79EF9EAEBA3} = {102436E8-F640-42A7-AA7C-DF42EE122CC4}
+		{3A03375E-8CBA-4D8D-AF6D-1B3C85C0BA50} = {102436E8-F640-42A7-AA7C-DF42EE122CC4}
 	EndGlobalSection
 EndGlobal

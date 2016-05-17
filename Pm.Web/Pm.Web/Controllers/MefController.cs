@@ -9,7 +9,7 @@ namespace Pm.Web.Controllers
     public class MefController : ControllersBase
     {
         public RedirectResult RefreshMef() {
-            Catalog.Refresh();
+            Catalogs.ForEach(m => m.Refresh());
 
             return Redirect("/");
         }

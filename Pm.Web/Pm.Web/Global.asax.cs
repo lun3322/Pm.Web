@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
@@ -21,13 +22,16 @@ namespace Pm.Web {
             var pluginPath = Server.MapPath("~/Plugin");
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-            var direCatalog = new DirectoryCatalog(pluginPath);
-            catalog.Catalogs.Add(direCatalog);
+
+            var pluginDirectories = Directory.GetDirectories(pluginPath, "Pm*", SearchOption.AllDirectories);
+            var direCatalogs = pluginDirectories.Select(m => new DirectoryCatalog(m)).ToList();
+            direCatalogs.ForEach(catalog.Catalogs.Add);
+
             var soler = new MefDependencySolver(catalog);
             DependencyResolver.SetResolver(soler);
 
             // 保存 DirectoryCatalog 为了后面刷新插件用
-            HttpContext.Current.Application["DirectoryCatalog"] = direCatalog;
+            HttpContext.Current.Application["DirectoryCatalogs"] = direCatalogs;
 
             // 添加路由插件注册
             var rotes = soler.Container.GetExports<IRouteConfig>();
