@@ -13,6 +13,8 @@ using Pm.Plugin.Core;
 
 namespace Pm.Web {
     public class MvcApplication : System.Web.HttpApplication {
+        private const string HttpContextKey = "MefContainerKey";
+
         protected void Application_Start() {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -27,14 +29,17 @@ namespace Pm.Web {
             var direCatalogs = pluginDirectories.Select(m => new DirectoryCatalog(m)).ToList();
             direCatalogs.ForEach(catalog.Catalogs.Add);
 
-            var soler = new MefDependencySolver(catalog);
-            DependencyResolver.SetResolver(soler);
+            var container = new CompositionContainer(catalog);
+            HttpContext.Current.Application["Container"] = container;
+
+            //var soler = new MefDependencySolver(catalog);
+            //DependencyResolver.SetResolver(soler);
 
             // 保存 DirectoryCatalog 为了后面刷新插件用
             HttpContext.Current.Application["DirectoryCatalogs"] = direCatalogs;
-
+            
             // 添加路由插件注册
-            var rotes = soler.Container.GetExports<IRouteConfig>();
+            var rotes = container.GetExports<IRouteConfig>();
             foreach (var item in rotes) {
                 item.Value.RegisterRoutes(RouteTable.Routes);
             }
