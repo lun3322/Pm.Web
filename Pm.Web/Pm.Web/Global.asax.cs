@@ -32,9 +32,6 @@ namespace Pm.Web {
             var container = new CompositionContainer(catalog);
             HttpContext.Current.Application["Container"] = container;
 
-            //var soler = new MefDependencySolver(catalog);
-            //DependencyResolver.SetResolver(soler);
-
             // 保存 DirectoryCatalog 为了后面刷新插件用
             HttpContext.Current.Application["DirectoryCatalogs"] = direCatalogs;
             
