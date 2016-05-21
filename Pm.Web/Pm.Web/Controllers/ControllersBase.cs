@@ -18,6 +18,7 @@ namespace Pm.Web.Controllers {
             Container?.ComposeParts(this);
 
             Catalogs = HttpContext.Application["DirectoryCatalogs"] as List<DirectoryCatalog>;
+			
         }
     }
 }
