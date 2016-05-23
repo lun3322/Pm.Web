@@ -29,16 +29,19 @@ namespace Pm.Web {
             var direCatalogs = pluginDirectories.Select(m => new DirectoryCatalog(m)).ToList();
             direCatalogs.ForEach(catalog.Catalogs.Add);
 
-            var container = new CompositionContainer(catalog);
-            HttpContext.Current.Application["Container"] = container;
+            var soler = new MefDependencySolver(catalog);
+            DependencyResolver.SetResolver(soler);
+
+            ControllerBuilder.Current.SetControllerFactory(new CustomControllerFactory());
+            
 
             // 保存 DirectoryCatalog 为了后面刷新插件用
             HttpContext.Current.Application["DirectoryCatalogs"] = direCatalogs;
             
             // 添加路由插件注册
-            var rotes = container.GetExports<IRouteConfig>();
+            var rotes = DependencyResolver.Current.GetServices<IRouteConfig>();
             foreach (var item in rotes) {
-                item.Value.RegisterRoutes(RouteTable.Routes);
+                item.RegisterRoutes(RouteTable.Routes);
             }
 
             ViewEngines.Engines.Clear();
