@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Z.Core.Extensions;
 
 namespace Pm.Web {
     public class CustomControllerFactory : DefaultControllerFactory {
