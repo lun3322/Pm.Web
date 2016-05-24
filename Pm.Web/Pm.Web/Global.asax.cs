@@ -13,8 +13,6 @@ using Pm.Plugin.Core;
 
 namespace Pm.Web {
     public class MvcApplication : System.Web.HttpApplication {
-        private const string HttpContextKey = "MefContainerKey";
-
         protected void Application_Start() {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -34,7 +32,6 @@ namespace Pm.Web {
 
             ControllerBuilder.Current.SetControllerFactory(new CustomControllerFactory());
             
-
             // 保存 DirectoryCatalog 为了后面刷新插件用
             HttpContext.Current.Application["DirectoryCatalogs"] = direCatalogs;
             
