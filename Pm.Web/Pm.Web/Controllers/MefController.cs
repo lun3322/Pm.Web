@@ -9,7 +9,9 @@ namespace Pm.Web.Controllers
     public class MefController : ControllersBase
     {
         public RedirectResult RefreshMef() {
-            Catalogs.ForEach(m => m.Refresh());
+            HttpRuntime.UnloadAppDomain();
+            System.IO.File.SetLastWriteTimeUtc(Server.MapPath("~/web.config"), DateTime.UtcNow);
+            System.IO.File.SetLastWriteTimeUtc(Server.MapPath("~/global.asax"), DateTime.UtcNow);
 
             return Redirect("/");
         }
