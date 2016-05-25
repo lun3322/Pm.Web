@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using NLog;
+using NLog.Config;
 using Pm.Plugin.Core;
 
 namespace Pm.Web {
@@ -18,6 +20,10 @@ namespace Pm.Web {
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            LogManager.Configuration = new XmlLoggingConfiguration(Server.MapPath("~/NLog.config"));
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Info("程序启动.");
+            
             // 插件配置
             var pluginPath = Server.MapPath("~/Plugin");
             var catalog = new AggregateCatalog();
